@@ -1,0 +1,31 @@
+{
+  "name": "orbit-inspector",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.5",
+    "parcel-bundler": "^1.12.3",
+    "postcss": "^7.0.17",
+    "prettier": "^1.18.2",
+    "tailwindcss": "^1.0.5",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@orbit/coordinator": "0.16.0-beta.11",
+    "@orbit/indexeddb": "0.16.0-beta.11",
+    "@orbit/jsonapi": "0.16.0-beta.11",
+    "@orbit/memory": "0.16.0-beta.11",
+    "luxon": "^1.17.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "scripts": {
+    "start": "yarn parcel src/index.html",
+    "build": "yarn parcel build src/index.html",
+    "prettier:base": "prettier --parser typescript --single-quote",
+    "prettier:check": "yarn prettier:base --list-different \"src/**/*.{ts,tsx}\"",
+    "prettier:write": "yarn prettier:base --write \"src/**/*.{ts,tsx}\""
+  }
+}
