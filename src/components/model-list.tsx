@@ -1,27 +1,26 @@
 import * as React from 'react';
-import { MemoryCache } from '@orbit/memory';
-import { useCount } from '../orbit';
+import { useContext } from 'react';
+
+import { Context, useCount } from '../orbit';
 
 interface ModelListParams {
-  cache: MemoryCache;
   selectedModelName: string;
   selectModel: (modelName: string) => void;
 }
 
 export default function ModelList({
-  cache,
   selectedModelName,
   selectModel
 }: ModelListParams) {
+  const schema = useContext(Context).schema;
   return (
     <ul className="bg-white border-r border-gray-400">
       <li className="text-sm text-gray-500 p-2 text-center">Model Types</li>
-      {Object.keys(cache.schema.models).map(modelName => {
+      {Object.keys(schema.models).map(modelName => {
         const isSelected = selectedModelName === modelName;
         return (
           <ModelItem
             key={modelName}
-            cache={cache}
             isSelected={isSelected}
             modelName={modelName}
             selectModel={selectModel}
@@ -33,19 +32,13 @@ export default function ModelList({
 }
 
 interface ModelItemParams {
-  cache: MemoryCache;
   modelName: string;
   isSelected: boolean;
   selectModel: (modelName: string) => void;
 }
 
-function ModelItem({
-  cache,
-  isSelected,
-  selectModel,
-  modelName
-}: ModelItemParams) {
-  const count = useCount(cache, q => q.findRecords(modelName));
+function ModelItem({ isSelected, selectModel, modelName }: ModelItemParams) {
+  const count = useCount(q => q.findRecords(modelName));
   const linkColor = isSelected ? 'bg-blue-500 text-white' : 'text-gray-700';
   const pillColor = isSelected
     ? 'bg-blue-400 text-white'

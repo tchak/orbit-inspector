@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { DateTime } from 'luxon';
 import {
   Record,
@@ -6,18 +7,18 @@ import {
   RelationshipDefinition,
   AttributeDefinition
 } from '@orbit/data';
-import { MemoryCache } from '@orbit/memory';
-import { useQuery } from '../orbit';
+
+import { Context, useQuery } from '../orbit';
 
 interface RecordListParams {
-  cache: MemoryCache;
   modelName: string;
 }
 
-export default function RecordList({ cache, modelName }: RecordListParams) {
-  const records =
-    (useQuery(cache, q => q.findRecords(modelName)) as Record[]) || [];
-  const columns = getColumns(cache.schema, modelName);
+export default function RecordList({ modelName }: RecordListParams) {
+  const schema = useContext(Context).schema;
+  const [{ data }] = useQuery(q => q.findRecords(modelName));
+  const records = (data || []) as Record[];
+  const columns = getColumns(schema, modelName);
 
   return (
     <div className="bg-white">

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 
 import createInspectorSource from './create-inspector-source';
+import { Provider } from './orbit';
 import App from './components/app';
 
 const schema = new Schema({
@@ -128,7 +129,12 @@ const schema = new Schema({
   const memory = await createInspectorSource(source);
   const element = document.getElementById('app');
 
-  render(<App cache={memory.cache} />, element);
+  render(
+    <Provider value={memory}>
+      <App />
+    </Provider>,
+    element
+  );
 
   seed(source);
 })();
