@@ -17,7 +17,7 @@
     "@orbit/indexeddb": "0.16.0-beta.11",
     "@orbit/jsonapi": "0.16.0-beta.11",
     "@orbit/memory": "0.16.0-beta.11",
-    "luxon": "^1.17.2",
+    "luxon": "^2.5.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
